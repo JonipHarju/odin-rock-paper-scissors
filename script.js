@@ -49,12 +49,15 @@ function getPlayerChoice() {
 }
 // here we execute the game to be played for 5 rounds :)
 function game() {
+  console.log("Let the games begin! :)");
   let playerScore = 0;
   let computerScore = 0;
   for (let i = 0; i < 5; i++) {
     const playerSelection = getPlayerChoice();
     const computerSelection = getComputerChoice();
+    // console log round function that takes the 2 functions above this line as variables
     console.log(round(playerSelection, computerSelection));
+    // give +1 score depending who won
     if (roundResult(playerSelection, computerSelection) == "Player wins") {
       playerScore++;
     } else if (
@@ -63,7 +66,7 @@ function game() {
       computerScore++;
     }
   }
-  console.log("GGS!");
+  console.log("good game!!");
   if (playerScore > computerScore) {
     console.log("you won!");
   } else if (playerScore < computerScore) {
@@ -72,4 +75,5 @@ function game() {
     console.log("a tie... wow!");
   }
 }
-game();
+
+console.log(game());
