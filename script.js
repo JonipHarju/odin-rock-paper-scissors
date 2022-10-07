@@ -1,5 +1,5 @@
 // Defining the three options players can play in rock, paper and scissors
-const options = ["Rock", "Paper", "Scissors"];
+const options = ["rock", "paper", "scissors"];
 
 // Function for the computer to draw rock, paper or scissor
 function getComputerChoice() {
@@ -8,27 +8,68 @@ function getComputerChoice() {
 }
 
 //here we take the player and computer input, compare them and output the outcome.
-function round(playerSelection, computerSelection) {
-  if (computerSelection.toUpperCase() === playerSelection.toUpperCase()) {
-    return "WOW A TIE!?!??!!? GO AGAIN!!!";
+function roundResult(playerSelection, computerSelection) {
+  if (playerSelection == computerSelection) {
+    return "draw";
   } else if (
-    (playerSelection.toUpperCase() === "ROCK" &&
-      computerSelection.toUpperCase() === "SCISSORS") ||
-    (playerSelection.toUpperCase() === "PAPER" &&
-      computerSelection.toUpperCase() === "ROCK") ||
-    (playerSelection.toUpperCase() === "SCISSORS" &&
-      computerSelection.toUpperCase() === "PAPER")
+    (playerSelection == "scissors" && computerSelection == "paper") ||
+    (playerSelection == "rock" && computerSelection == "scissors") ||
+    (playerSelection == "paper" && computerSelection == "rock")
   ) {
-    return "YOU ARE THE WINNER!!!!!";
+    return "Player wins";
   } else {
-    return "THE COMPUTER BEAT YOU AHHAHAHA!!!!!";
+    return "Computer wins";
+  }
+}
+// a function to play 1 round of rock paper scissors
+function round(playerSelection, computerSelection) {
+  let result = roundResult(playerSelection, computerSelection);
+  if (result == "draw") {
+    return "Wow! a draw!";
+  } else if (result == "Player wins") {
+    return "You are the winner of the round!";
+  } else {
+    return "The computer won the round!";
   }
 }
 
-function game() {}
-
-/*
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(round(playerSelection, computerSelection));
-*/
+function getPlayerChoice() {
+  let playerInput = false;
+  while (playerInput === false) {
+    const playerChoice = prompt("rock, paper or scissors?");
+    if (playerChoice == null) {
+      continue;
+    }
+    const playerChoiceRightSyntax = playerChoice.toLowerCase();
+    if (options.includes(playerChoiceRightSyntax)) {
+      playerInput = true;
+      return playerChoiceRightSyntax;
+    }
+  }
+}
+// here we execute the game to be played for 5 rounds :)
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+  for (let i = 0; i < 5; i++) {
+    const playerSelection = getPlayerChoice();
+    const computerSelection = getComputerChoice();
+    console.log(round(playerSelection, computerSelection));
+    if (roundResult(playerSelection, computerSelection) == "Player wins") {
+      playerScore++;
+    } else if (
+      roundResult(playerSelection, computerSelection) == "Computer wins"
+    ) {
+      computerScore++;
+    }
+  }
+  console.log("GGS!");
+  if (playerScore > computerScore) {
+    console.log("you won!");
+  } else if (playerScore < computerScore) {
+    console.log("Computer won and you lost!");
+  } else {
+    console.log("a tie... wow!");
+  }
+}
+game();
