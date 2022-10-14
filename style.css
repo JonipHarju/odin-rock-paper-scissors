@@ -4,8 +4,8 @@
 }
 
 button {
-  width: 40rem;
-  height: 40rem;
+  width: 30rem;
+  height: 25rem;
   background-color: beige;
   color: goldenrod;
   font-size: 5rem;
@@ -23,7 +23,7 @@ button {
 #results {
   display: flex;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 2rem;
   color: goldenrod;
 }
 h1 {
