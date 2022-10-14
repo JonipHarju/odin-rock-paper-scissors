@@ -1,79 +1,76 @@
-// Defining the three options players can play in rock, paper and scissors
+// call the dom elements to display the score
+const winnerPlayer = document.querySelector("#playerWins");
+const winnerComputer = document.querySelector("#computerWins");
+const ties = document.querySelector("#ties");
+// const winnerMessage = document.querySelector("#winnerMessage");
+
+// define the variables when the game ends.
+let playerWinCount = 0;
+let computerWinCount = 0;
+
+// defining the array where the computer can draw their weapon
 const options = ["rock", "paper", "scissors"];
 
-// Function for the computer to draw rock, paper or scissor
+//player makes the choice what weapon to wield  here and then we run the game with playround() and after that score()
+
+// player choice  = rock
+const rockButton = document.querySelector("#rock");
+rockButton.addEventListener("click", () => {
+  playRound("rock", getComputerChoice());
+  score();
+});
+
+//player choice = paper
+const paperButton = document.querySelector("#paper");
+paperButton.addEventListener("click", () => {
+  playRound("paper", getComputerChoice());
+  score();
+});
+
+//player choice = scissors
+const scissorsButton = document.querySelector("#scissors");
+scissorsButton.addEventListener("click", () => {
+  playRound("scissors", getComputerChoice());
+  score();
+});
+
+// here we generate the computer's weapon of choice
 function getComputerChoice() {
   const computerChoice = options[Math.floor(Math.random() * options.length)];
   return computerChoice;
 }
-
-//here we take the player and computer input, compare them and output the outcome.
-function roundResult(playerSelection, computerSelection) {
-  if (playerSelection == computerSelection) {
-    return "draw";
+// here we play the round and compare players and computers weapons and and also add points to them if they win.
+function playRound(playerSelection, computerSelection) {
+  if (playerSelection === computerSelection) {
+    ties.textContent += " ⚔️ ";
   } else if (
     (playerSelection == "scissors" && computerSelection == "paper") ||
     (playerSelection == "rock" && computerSelection == "scissors") ||
     (playerSelection == "paper" && computerSelection == "rock")
   ) {
-    return "Player wins";
+    winnerPlayer.textContent += " 💗 ";
+    playerWinCount += 1;
   } else {
-    return "Computer wins";
-  }
-}
-// a function to play 1 round of rock paper scissors
-function round(playerSelection, computerSelection) {
-  let result = roundResult(playerSelection, computerSelection);
-  if (result == "draw") {
-    return "Wow! a draw!";
-  } else if (result == "Player wins") {
-    return "You are the winner of the round!";
-  } else {
-    return "The computer won the round!";
+    computerWinCount += 1;
+    winnerComputer.textContent += " 💀 ";
   }
 }
 
-function getPlayerChoice() {
-  let playerInput = false;
-  while (playerInput === false) {
-    const playerChoice = prompt("rock, paper or scissors?");
-    if (playerChoice == null) {
-      continue;
-    }
-    const playerChoiceRightSyntax = playerChoice.toLowerCase();
-    if (options.includes(playerChoiceRightSyntax)) {
-      playerInput = true;
-      return playerChoiceRightSyntax;
-    }
+// here we check if the player or computer win count === 5 and if it does send a alert message that they have won the game.
+function score() {
+  if (playerWinCount === 5) {
+    alert("You have won and overthrown the evil super computer!");
+    reset();
+  } else if (computerWinCount === 5) {
+    alert("The computer has bested you and the humanity is doomed");
+    reset();
   }
 }
-// here we execute the game to be played for 5 rounds :)
-function game() {
-  console.log("Let the games begin! :)");
-  let playerScore = 0;
-  let computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
-    // console log round function that takes the 2 functions above this line as variables
-    console.log(round(playerSelection, computerSelection));
-    // give +1 score depending who won
-    if (roundResult(playerSelection, computerSelection) == "Player wins") {
-      playerScore++;
-    } else if (
-      roundResult(playerSelection, computerSelection) == "Computer wins"
-    ) {
-      computerScore++;
-    }
-  }
-  console.log("good game!!");
-  if (playerScore > computerScore) {
-    console.log("you won!");
-  } else if (playerScore < computerScore) {
-    console.log("Computer won and you lost!");
-  } else {
-    console.log("a tie... wow!");
-  }
+// here we return all the values back to their original form and let the player play again
+function reset() {
+  playerWinCount = 0;
+  computerWinCount = 0;
+  winnerPlayer.textContent = "Player: ";
+  winnerComputer.textContent = "Computer: ";
+  ties.textContent = "Ties: ";
 }
-
-console.log(game());
