@@ -12,6 +12,12 @@ button {
   border-style: solid;
   border-color: orange;
   border-width: 10px;
+  cursor: pointer;
+  transition: background-color 1s;
+}
+
+button:hover {
+  background-color: darkgoldenrod;
 }
 
 #container {

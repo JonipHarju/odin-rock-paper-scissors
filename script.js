@@ -11,7 +11,7 @@ let computerWinCount = 0;
 // defining the array where the computer can draw their weapon
 const options = ["rock", "paper", "scissors"];
 
-//player makes the choice what weapon to wield  here and then we run the game with playround() and after that score()
+//player makes the choice what weapon to wield here, then we run the game with playround() and after that check the score with score()
 
 // player choice  = rock
 const rockButton = document.querySelector("#rock");
@@ -34,6 +34,12 @@ scissorsButton.addEventListener("click", () => {
   score();
 });
 
+// options.forEach(element => {
+//   document.querySelector(`#${element}`).addEventListener("click", () => {
+//     playRound(element, getComputerChoice());
+//     score();
+// });
+
 // here we generate the computer's weapon of choice
 function getComputerChoice() {
   const computerChoice = options[Math.floor(Math.random() * options.length)];
@@ -55,7 +61,6 @@ function playRound(playerSelection, computerSelection) {
     winnerComputer.textContent += " 💀 ";
   }
 }
-
 // here we check if the player or computer win count === 5 and if it does send a alert message that they have won the game.
 function score() {
   if (playerWinCount === 5) {
